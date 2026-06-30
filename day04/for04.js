@@ -45,14 +45,41 @@ let result2 = "";
 
 // 6번 문제 1~5까지 반복후 아래 결과 만들기
 // "00001"
-let result6 = "";
-for (let i = 0; i < 5; i++) {
-    let num = i + 1;
-    result6 += num === 5 ? 1 : 0;
-}
+// let result6 = "";
+// for (let i = 0; i < 5; i++) {
+//     let num = i + 1;
+//     result6 += num === 5 ? 1 : 0;
+// }
 
-console.log(result6);
+// console.log(result6);
 
 // 7번 문제: 1~20중 10~15를 제외하고 출력하기
+
+// for (let i = 1; i <= 20; i++) {
+//     if (i >= 10 && i <= 15) {
+//         continue;
+//     }
+//     console.log(i);
+// }
+
 // 8번 문제: 1~100까지 홀수만 더한 값과, 짝수만 더한 값의 차를 구하여 출력하기
+
+// let odd = 0;
+// let even = 0;
+
+// for (i = 1; i <= 100; i++) {
+//     if (i % 2 === 0) {
+//         odd += i;
+//     } else {
+//         even += i;
+//     }
+// }
+// let sum = odd + even;
+// console.log("더한 값은", sum);
+
 // 9번 문제: 1~10까지의 총합을 출력하시오
+let sum = 0;
+for (let i = 1; i <= 10; i++) {
+    sum += i;
+}
+console.log(sum);
