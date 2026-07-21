@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>선택자를 이용한 내용 변경</title>
+    </head>
+    <body>
+        <ul>
+            <li class="item">치킨</li>
+            <li class="item">집</li>
+            <li class="item">자동차</li>
+            <li class="item">남자친구</li>
+            <li class="item">여자친구</li>
+        </ul>
+    </body>
+    <script>
+        // li태그의 "친구"가 들어가있는 li태그만 컬러를 red로 변경
+        HTMLCollection.prototype.filter = Array.prototype.filter;
+
+        const items = document.getElementsByClassName("item");
+        items
+            .filter((li) => li.innerText.includes("친구"))
+            .forEach((li) => {
+                li.style.color = "red";
+            });
+    </script>
+</html>
