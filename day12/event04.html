@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>키보드 이벤트</title>
+    </head>
+    <body>
+        <input type="text" name="name" placeholder="이름을 입력" />
+        <p id="name"></p>
+    </body>
+    <script>
+        // 이름 입력창과 입력 결과를 표시할 p 태그를 가져온다.
+        const input = document.querySelector("input[name='name']");
+        const p = document.querySelector("#name");
+
+        // 입력창에서 눌렀던 키를 놓으면 keyup 이벤트가 발생한다.
+        input.addEventListener("keyup", (e) => {
+            // e.key에는 사용자가 누른 키의 이름이 들어 있다.
+            // Enter 키를 눌렀을 때만 아래 코드를 실행한다.
+            if (e.key === "Enter") {
+                // e.target은 이벤트가 발생한 입력창을 의미한다.
+                // 입력창의 현재 값을 p 태그에 출력한다.
+                p.innerText = e.target.value;
+            }
+        });
+    </script>
+</html>

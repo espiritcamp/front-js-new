@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>체크박스의 동의</title>
+    </head>
+    <body>
+        <form action="" name="myForm">
+            <div>
+                <label>
+                    전체 동의
+                    <input type="checkbox" name="all" class="all" />
+                </label>
+            </div>
+            <div>
+                <label>
+                    서비스 이용약관 동의
+                    <input type="checkbox" name="term1" class="term" />
+                </label>
+            </div>
+            <div>
+                <label>
+                    광고 수신 동의
+                    <input type="checkbox" name="term2" class="term" />
+                </label>
+            </div>
+            <div>
+                <label>
+                    개인 정보 이용약관 동의
+                    <input type="checkbox" name="term3" class="term" />
+                </label>
+            </div>
+        </form>
+    </body>
+    <script>
+        // document.querySelector()는 조건에 맞는 첫 번째 요소 하나를 가져온다.
+        // class가 all인 '전체 동의' 체크박스를 선택한다.
+        const allCheckbox = document.querySelector(".all");
+
+        // document.querySelectorAll()은 조건에 맞는 요소를 모두 가져온다.
+        // class가 term인 개별 약관 체크박스들이 NodeList 형태로 저장된다.
+        const termCheckboxes = document.querySelectorAll(".term");
+
+        // 전체 동의 체크박스의 상태가 바뀔 때 실행된다.
+        // change 이벤트는 체크박스를 체크하거나 해제하면 발생한다.
+        allCheckbox.addEventListener("change", (e) => {
+            // forEach()를 사용해 모든 개별 약관 체크박스를 하나씩 확인한다.
+            termCheckboxes.forEach((checkbox) => {
+                // e.target은 change 이벤트가 발생한 전체 동의 체크박스이다.
+                // checked는 체크되어 있으면 true, 해제되어 있으면 false이다.
+                // 전체 동의의 checked 값을 각 개별 약관에 그대로 대입한다.
+                // 따라서 전체 동의를 체크하면 모두 체크되고, 해제하면 모두 해제된다.
+                checkbox.checked = e.target.checked;
+            });
+        });
+
+        // 각 개별 약관 체크박스에 change 이벤트를 하나씩 등록한다.
+        termCheckboxes.forEach((checkbox) => {
+            checkbox.addEventListener("change", () => {
+                // termCheckboxes는 NodeList이므로 전개 문법([...])을 사용해
+                // every() 메서드를 사용할 수 있는 배열로 변환한다.
+                // every()는 모든 체크박스의 checked 값이 true일 때만 true를 반환한다.
+                // 하나라도 체크가 해제되어 있으면 false를 반환한다.
+                allCheckbox.checked = [...termCheckboxes].every(
+                    (term) => term.checked,
+                );
+
+                // every()의 결과가 true이면 전체 동의가 자동으로 체크되고,
+                // false이면 전체 동의가 자동으로 해제된다.
+            });
+        });
+    </script>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>클릭 이벤트</title>
+    </head>
+    <body>
+        <form action="#">
+            <label>
+                <span>아이디</span>
+                <input
+                    type="text"
+                    name="id"
+                    placeholder="아이디를 입력하세요"
+                />
+                <p id="id-result"></p>
+            </label>
+            <label>
+                <span>비밀번호</span>
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="비밀번호를 입력하세요."
+                />
+                <p id="password-result"></p>
+            </label>
+            <button type="button">로그인</button>
+        </form>
+    </body>
+    <script>
+        const button = document.querySelector("button[type='button']");
+        const id = document.querySelector("input[name='id']");
+        const pw = document.querySelector("input[name='password']");
+        const idResult = document.querySelector("#id-result");
+        const pwResult = document.querySelector("#password-result");
+        const form = document.querySelector("form");
+
+        // 로그인 버튼을 누르기 전에
+        // 아이디를 입력하거나 비밀번호를 입력할 때 유효성을 검사하세요.
+        // 아이디와 비밀번호의 유효성 검사 결과를 각각 저장한다.
+        // flag[0]: 아이디 검사 결과, flag[1]: 비밀번호 검사 결과
+        globalThis.flag = new Array(false, false);
+
+        // 아이디 값이 변경된 후 입력창에서 포커스가 벗어나면 실행된다.
+        id.addEventListener("change", (e) => {
+            // 입력값이 없으면 아이디를 유효하지 않은 상태로 저장한다.
+            if (!e.target.value) {
+                globalThis.flag[0] = false;
+                idResult.innerText = "아이디를 입력하세요.";
+                idResult.style.color = "red";
+                return;
+            }
+
+            // 아이디가 입력되어 있으면 유효한 상태로 저장한다.
+            globalThis.flag[0] = true;
+            idResult.innerText = "멋진 아이디네요.";
+            idResult.style.color = "blue";
+        });
+
+        // 비밀번호 값이 변경된 후 입력창에서 포커스가 벗어나면 실행된다.
+        pw.addEventListener("change", (e) => {
+            // 입력값이 없으면 비밀번호를 유효하지 않은 상태로 저장한다.
+            if (!e.target.value) {
+                globalThis.flag[1] = false;
+                pwResult.innerText = "비밀번호를 입력하세요";
+                pwResult.style.color = "red";
+                return;
+            }
+
+            // 비밀번호가 입력되어 있으면 유효한 상태로 저장한다.
+            globalThis.flag[1] = true;
+            pwResult.innerText = "검증 완료!";
+            pwResult.style.color = "blue";
+        });
+
+        // 로그인 버튼을 클릭하면 두 입력값의 검사 결과를 확인한다.
+        button.addEventListener("click", () => {
+            // true인 값만 추린 배열의 길이가 2가 아니면 제출하지 않는다.
+            if (globalThis.flag.filter((check) => check).length != 2) {
+                alert("아이디 또는 비밀번호를 확인해주세요.");
+                return;
+            }
+
+            // 아이디와 비밀번호가 모두 유효한 경우 폼을 제출한다.
+            form.submit();
+        });
+    </script>
+</html>

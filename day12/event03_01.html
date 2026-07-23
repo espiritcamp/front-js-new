@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>클릭 이벤트</title>
+    </head>
+    <body>
+        <form action="#">
+            <label>
+                <span>아이디</span>
+                <input
+                    type="text"
+                    name="id"
+                    placeholder="아이디를 입력하세요"
+                />
+                <p id="id-result"></p>
+            </label>
+            <label>
+                <span>비밀번호</span>
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="비밀번호를 입력하세요."
+                />
+                <p id="password-result"></p>
+            </label>
+            <button type="button">로그인</button>
+        </form>
+    </body>
+    <script>
+        const button = document.querySelector("button[type='button']");
+        const id = document.querySelector("input[name='id']");
+        const pw = document.querySelector("input[name='password']");
+        const idResult = document.querySelector("#id-result");
+        const pwResult = document.querySelector("#password-result");
+        const form = document.querySelector("form");
+
+        // 로그인 버튼을 누르기 전에
+        // 아이디를 입력하거나 비밀번호를 입력할 때 유효성을 검사하세요.
+
+        // 아이디가 입력되었는지 검사하는 함수
+        const validateId = () => {
+            // 앞뒤 공백을 제거한 후 값이 있는지 확인한다.
+            const isValid = id.value.trim() !== "";
+
+            // 검사 결과에 맞게 안내 문구와 글자 색상을 변경한다.
+            idResult.innerText = isValid
+                ? "멋진 아이디네요."
+                : "아이디를 입력해주세요.";
+            idResult.style.color = isValid ? "blue" : "red";
+
+            // 검사 결과를 로그인 클릭 이벤트에서 사용할 수 있도록 반환한다.
+            return isValid;
+        };
+
+        // 비밀번호가 입력되었는지 검사하는 함수
+        const validatePassword = () => {
+            // 공백만 입력한 경우도 입력하지 않은 것으로 처리한다.
+            const isValid = pw.value.trim() !== "";
+
+            // 검사 결과에 맞게 안내 문구와 글자 색상을 변경한다.
+            pwResult.innerText = isValid
+                ? "검증 완료!"
+                : "비밀번호를 입력해주세요.";
+            pwResult.style.color = isValid ? "blue" : "red";
+
+            return isValid;
+        };
+
+        // 입력값을 변경한 후 입력창에서 포커스가 벗어나면 검사한다.
+        id.addEventListener("change", validateId);
+        pw.addEventListener("change", validatePassword);
+
+        // 로그인 버튼을 클릭하면 두 입력값을 마지막으로 다시 검사한다.
+        button.addEventListener("click", (e) => {
+            const isIdValid = validateId();
+            const isPasswordValid = validatePassword();
+
+            // 아이디가 비어 있으면 아이디 입력창으로 커서를 이동한다.
+            if (!isIdValid) {
+                id.focus();
+                return;
+            }
+
+            // 비밀번호가 비어 있으면 비밀번호 입력창으로 커서를 이동한다.
+            if (!isPasswordValid) {
+                pw.focus();
+                return;
+            }
+
+            // 두 검사를 모두 통과한 경우에만 폼 데이터를 전송한다.
+            form.submit();
+        });
+    </script>
+</html>
